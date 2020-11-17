@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.cglib.core.Local;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +27,8 @@ public class PurchaseManagerTest {
 //        purchaseStoreStump.addCategory(22,"Home");
 //        purchaseStoreStump.addCategory(23,"Entertainment");
     }
+
+    // -------------------------------------------------------- sumOfMonth() --------------------------------------------------------
 
     @Test
     public void testSumOfMonth(){
@@ -47,6 +50,16 @@ public class PurchaseManagerTest {
     }
 
     @Test
+    public void testSumOfMonth_purchases_invalidLocalDate_month(){
+        assertThrows(DateTimeException.class,() -> purchaseManager.sumOfMonth(2020,0));
+    }
+
+    @Test
+    public void testSumOfMonth_purchases_invalidLocalDate_year(){
+        assertThrows(DateTimeException.class,() -> purchaseManager.sumOfMonth(0,9));
+    }
+
+    @Test
     public void testSumOfMonth_purchases_empty(){
         assertThrows(ListEmptyException.class,() -> purchaseManager.sumOfMonth(2020,3));
     }
@@ -57,6 +70,7 @@ public class PurchaseManagerTest {
         assertThrows(NullPointerException.class,() -> purchaseManager.sumOfMonth(2020,3));
     }
 
+    // -------------------------------------------------------- monthlyAverage() --------------------------------------------------------
 
 
 
