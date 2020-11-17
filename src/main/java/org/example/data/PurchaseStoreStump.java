@@ -2,6 +2,7 @@ package org.example.data;
 
 import org.example.entities.Category;
 import org.example.entities.Purchase;
+import org.example.exceptions.ListEmptyException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,8 +29,9 @@ public class PurchaseStoreStump extends PurchaseStore {
 
     @Override
     public Purchase[] getPurchases(LocalDate startDate, LocalDate endDate) {
+        if (purchaseList.isEmpty()) throw new ListEmptyException("The list of purchases is empty");
         Purchase [] purchases = purchaseList.stream()
-                .filter(purchase -> purchase.getDate().isEqual(startDate))
+                .filter(purchase -> purchase.getDate().isAfter(startDate) || purchase.getDate().isEqual(startDate))
                 .filter(purchase -> purchase.getDate().isBefore(endDate))
                 .toArray(Purchase[]::new);
         return purchases;

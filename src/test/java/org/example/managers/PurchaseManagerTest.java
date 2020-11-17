@@ -39,11 +39,16 @@ public class PurchaseManagerTest {
 
     @Test
     public void testSumOfMonth_purchases_notFound(){
-        purchaseStoreStump.addPurchase(10, LocalDate.of(2020,5,1),1000,
+        purchaseStoreStump.addPurchase(10, LocalDate.of(2020,3,1),1000,
                 "I bought a shirt",24);
         purchaseStoreStump.addPurchase(11, LocalDate.of(2020,5,1),1000,
                 "I bought some pants",24);
         assertThrows(PurchaseNotFoundException.class,() -> purchaseManager.sumOfMonth(2020,4));
+    }
+
+    @Test
+    public void testSumOfMonth_purchases_empty(){
+        assertThrows(ListEmptyException.class,() -> purchaseManager.sumOfMonth(2020,3));
     }
 
     @Test
