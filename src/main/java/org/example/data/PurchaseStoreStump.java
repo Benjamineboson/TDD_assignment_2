@@ -7,7 +7,6 @@ import org.example.exceptions.ListEmptyException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 
 public class PurchaseStoreStump extends PurchaseStore {
 
@@ -19,7 +18,7 @@ public class PurchaseStoreStump extends PurchaseStore {
         this.categoryList = new ArrayList<>();
     }
 
-    public void addPurchase(int purchaseId, LocalDate date, float amount, String comment, int categoryId){
+    public void addPurchase(int purchaseId, LocalDate date, double amount, String comment, int categoryId){
         purchaseList.add(new Purchase(purchaseId,date,amount,comment,categoryId));
     }
 
@@ -30,11 +29,10 @@ public class PurchaseStoreStump extends PurchaseStore {
     @Override
     public Purchase[] getPurchases(LocalDate startDate, LocalDate endDate) {
         if (purchaseList.isEmpty()) throw new ListEmptyException("The list of purchases is empty");
-        Purchase [] purchases = purchaseList.stream()
+        return purchaseList.stream()
                 .filter(purchase -> purchase.getDate().isAfter(startDate) || purchase.getDate().isEqual(startDate))
                 .filter(purchase -> purchase.getDate().isBefore(endDate))
                 .toArray(Purchase[]::new);
-        return purchases;
     }
 
     @Override
@@ -51,7 +49,5 @@ public class PurchaseStoreStump extends PurchaseStore {
         this.purchaseList = purchaseList;
     }
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-    }
+    
 }

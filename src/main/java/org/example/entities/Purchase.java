@@ -7,11 +7,11 @@ public class Purchase {
 
     private int purchaseId;
     private LocalDate date;
-    private float amount;
+    private double amount;
     private String comment;
     private int categoryId;
 
-    public Purchase(int purchaseId, LocalDate date, float amount, String comment, int categoryId) {
+    public Purchase(int purchaseId, LocalDate date, double amount, String comment, int categoryId) {
         this.purchaseId = purchaseId;
         this.date = date;
         this.amount = amount;
@@ -31,11 +31,11 @@ public class Purchase {
         this.date = date;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -61,7 +61,7 @@ public class Purchase {
         if (o == null || getClass() != o.getClass()) return false;
         Purchase purchase = (Purchase) o;
         return purchaseId == purchase.purchaseId &&
-                Float.compare(purchase.amount, amount) == 0 &&
+                Double.compare(purchase.amount, amount) == 0 &&
                 categoryId == purchase.categoryId &&
                 Objects.equals(date, purchase.date) &&
                 Objects.equals(comment, purchase.comment);
