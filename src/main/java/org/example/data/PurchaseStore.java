@@ -21,4 +21,6 @@ public class PurchaseStore implements IPurchaseStore {
     public Category[] getAllCategories() {
         return new Category[0];
     }
+
+
 }

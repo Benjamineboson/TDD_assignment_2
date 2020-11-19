@@ -28,7 +28,6 @@ public class PurchaseStoreStump extends PurchaseStore {
 
     @Override
     public Purchase[] getPurchases(LocalDate startDate, LocalDate endDate) {
-        if (purchaseList.isEmpty()) throw new ListEmptyException("The list of purchases is empty");
         return purchaseList.stream()
                 .filter(purchase -> purchase.getDate().isAfter(startDate) || purchase.getDate().isEqual(startDate))
                 .filter(purchase -> purchase.getDate().isBefore(endDate))
@@ -42,12 +41,22 @@ public class PurchaseStoreStump extends PurchaseStore {
 
     @Override
     public Category[] getAllCategories() {
-        return super.getAllCategories();
+        return categoryList.stream().toArray(Category[]::new);
     }
 
     public void setPurchaseList(List<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
     }
 
-    
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public List<Purchase> getPurchaseList() {
+        return purchaseList;
+    }
+
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
 }
